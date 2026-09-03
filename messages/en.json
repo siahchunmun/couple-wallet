@@ -1,0 +1,60 @@
+{
+  "Common": {
+    "myWallet": "My Wallet",
+    "ourWallet": "Our Wallet",
+    "personal": "Personal",
+    "shared": "Shared",
+    "save": "Save",
+    "saving": "Saving...",
+    "cancel": "Cancel",
+    "back": "Back",
+    "edit": "Edit",
+    "delete": "Delete",
+    "manage": "Manage",
+    "settings": "Settings"
+  },
+
+  "Settings": {
+    "title": "Settings",
+    "subtitle": "Manage your profile and app preferences.",
+    "profile": "Profile",
+    "displayName": "Display name",
+    "displayNamePlaceholder": "Your name",
+    "language": "Language",
+    "languageDescription": "Choose the language used by the app.",
+    "english": "English",
+    "simplifiedChinese": "简体中文",
+    "saveProfile": "Save Changes",
+    "saving": "Saving...",
+    "saved": "Settings saved.",
+    "saveError": "Unable to save your settings.",
+    "languageNote": "The app will refresh after changing language."
+  },
+
+  "Dashboard": {
+    "availableBalance": "Available Balance",
+    "reservedInGoals": "Reserved in Goals",
+    "totalWalletValue": "Total Wallet Value",
+    "savingsGoals": "Savings Goals",
+    "monthlyBudget": "Monthly Budget",
+    "thisMonth": "This Month",
+    "income": "Income",
+    "expenses": "Expenses",
+    "whereMyMoneyWent": "Where my money went",
+    "whereOurMoneyWent": "Where our money went",
+    "recentTransactions": "Recent Transactions"
+  },
+
+  "Navigation": {
+    "home": "Home",
+    "transactions": "Transactions",
+    "add": "Add",
+    "budget": "Budget",
+    "more": "More",
+    "goals": "Savings Goals",
+    "recurring": "Recurring",
+    "reports": "Reports",
+    "categories": "Categories",
+    "settings": "Settings"
+  }
+}

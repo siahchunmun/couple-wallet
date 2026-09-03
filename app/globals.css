@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* =====================================================
+   COUPLE WALLET
+   BLACK + GOLD THEME
+   ===================================================== */
+
+:root {
+  --cw-bg: #080808;
+  --cw-surface: #121212;
+  --cw-surface-soft: #181611;
+
+  --cw-gold: #d4af37;
+  --cw-gold-soft: #c9a86a;
+  --cw-gold-dark: #8f742d;
+
+  --cw-border: #302819;
+  --cw-border-strong: #4a3b1d;
+
+  --cw-text: #f5f0e6;
+  --cw-text-soft: #d4cab8;
+  --cw-muted: #9c9488;
+}
+
+
+/* =========================================
+   GLOBAL
+   ========================================= */
+
+html {
+  background: var(--cw-bg);
+}
+
+body {
+  background: var(--cw-bg);
+  color: var(--cw-text);
+}
+
+
+/* =========================================
+   CONVERT EXISTING LIGHT UI
+   TO DARK UI
+   ========================================= */
+
+.bg-gray-50 {
+  background-color: var(--cw-bg);
+}
+
+.bg-white {
+  background-color: var(--cw-surface);
+}
+
+.bg-gray-100 {
+  background-color: var(--cw-surface-soft);
+}
+
+.bg-gray-200 {
+  background-color: #28231a;
+}
+
+
+/* =========================================
+   TEXT
+   ========================================= */
+
+.text-gray-900 {
+  color: var(--cw-text);
+}
+
+.text-gray-700 {
+  color: var(--cw-text-soft);
+}
+
+.text-gray-600 {
+  color: #bcae97;
+}
+
+.text-gray-500 {
+  color: var(--cw-muted);
+}
+
+.text-gray-400 {
+  color: #777066;
+}
+
+.text-gray-300 {
+  color: #aaa095;
+}
+
+
+/* =========================================
+   BORDERS
+   ========================================= */
+
+.border-gray-100 {
+  border-color: var(--cw-border);
+}
+
+.border-gray-200 {
+  border-color: var(--cw-border);
+}
+
+.border-gray-300 {
+  border-color: var(--cw-border-strong);
+}
+
+
+/* =========================================
+   FORM CONTROLS
+   ========================================= */
+
+input,
+select,
+textarea {
+  color-scheme: dark;
+}
+
+input,
+select,
+textarea {
+  background-color: var(--cw-surface);
+  color: var(--cw-text);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #686158;
+}
+
+
+/* =========================================
+   GOLD SELECTION
+   ========================================= */
+
+::selection {
+  background: var(--cw-gold);
+  color: #080808;
+}
+
+
+/* =========================================
+   SCROLLBAR
+   ========================================= */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cw-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3b321f;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cw-gold-dark);
+}
