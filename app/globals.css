@@ -183,3 +183,51 @@ textarea::placeholder {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--cw-gold-dark);
 }
+
+/* =========================================
+   RECHARTS - COUPLE WALLET THEME
+   ========================================= */
+
+.recharts-wrapper {
+  color: var(--cw-text);
+}
+
+/* Pie / donut separator */
+.recharts-pie-sector .recharts-sector {
+  stroke: var(--cw-surface);
+  stroke-width: 2px;
+}
+
+/* Tooltip */
+.recharts-default-tooltip {
+  background: var(--cw-surface) !important;
+  border: 1px solid var(--cw-border-strong) !important;
+  border-radius: 10px !important;
+  color: var(--cw-text) !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
+.recharts-tooltip-label {
+  color: var(--cw-gold) !important;
+  font-weight: 600;
+}
+
+.recharts-tooltip-item {
+  color: var(--cw-text-soft) !important;
+}
+
+/* Chart labels */
+.recharts-text,
+.recharts-cartesian-axis-tick-value {
+  fill: var(--cw-muted);
+}
+
+/* Grid */
+.recharts-cartesian-grid line {
+  stroke: var(--cw-border);
+}
+
+/* Legend */
+.recharts-legend-item-text {
+  color: var(--cw-text-soft) !important;
+}
