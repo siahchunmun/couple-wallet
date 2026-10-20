@@ -168,6 +168,7 @@ function GoalCard({ goal, availableBalance }: { goal: Goal; availableBalance: nu
   const [editName, setEditName] = useState(goal.name);
   const [editTarget, setEditTarget] = useState(String(goal.targetAmount));
 
+  const isFinished = goal.status === "finished";
   const progress = goal.targetAmount > 0 ? (goal.balance / goal.targetAmount) * 100 : 0;
   const remaining = Math.max(goal.targetAmount - goal.balance, 0);
 
@@ -269,17 +270,51 @@ function GoalCard({ goal, availableBalance }: { goal: Goal; availableBalance: nu
     }
   }
 
+  async function finishGoal() {
+    setError("");
+    if (goal.balance !== 0) {
+      setError(`Withdraw the remaining RM ${formatMoney(goal.balance)} before marking this goal finished.`);
+      return;
+    }
+    if (!window.confirm(`Mark "${goal.name}" as finished? It will be kept as a completed trip record.`)) return;
+    setLoading(true);
+    try {
+      const supabase = createClient();
+      const { error: rpcError } = await supabase.rpc("finish_savings_goal", {
+        goal_id: goal.id,
+      });
+      if (rpcError) {
+        setError(rpcError.message);
+        return;
+      }
+      router.refresh();
+    } catch {
+      setError("Unable to mark goal as finished. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <article className="rounded-3xl border border-gray-100 bg-white p-6">
       <div className="flex items-start justify-between gap-4">
         <div>
           <h3 className="text-lg font-bold text-gray-900">🎯 {goal.name}</h3>
-          <p className="mt-1 text-sm text-gray-500">RM {formatMoney(goal.balance)} / RM {formatMoney(goal.targetAmount)}</p>
+          {isFinished ? (
+            <p className="mt-1 text-sm text-gray-500">Target: RM {formatMoney(goal.targetAmount)}</p>
+          ) : (
+            <p className="mt-1 text-sm text-gray-500">RM {formatMoney(goal.balance)} / RM {formatMoney(goal.targetAmount)}</p>
+          )}
         </div>
-        {goal.status === "completed" && <span className="rounded-full bg-green-50 px-3 py-1 text-xs font-semibold text-green-700">Completed</span>}
+        {isFinished ? (
+          <span className="rounded-full bg-green-50 px-3 py-1 text-xs font-semibold text-green-700">Trip Completed</span>
+        ) : goal.status === "completed" ? (
+          <span className="rounded-full bg-green-50 px-3 py-1 text-xs font-semibold text-green-700">Target Reached</span>
+        ) : null}
       </div>
 
-      <div className="mt-4 flex flex-wrap gap-2">
+      {!isFinished && (
+        <div className="mt-4 flex flex-wrap gap-2">
         <button type="button" disabled={loading} onClick={() => {
           if (!editing) {
             setEditName(goal.name);
@@ -295,7 +330,9 @@ function GoalCard({ goal, availableBalance }: { goal: Goal; availableBalance: nu
         </button>
       </div>
 
-      {editing && (
+      )}
+
+      {!isFinished && editing && (
         <form onSubmit={editGoal} className="mt-4 space-y-3 rounded-2xl bg-gray-50 p-4">
           <div>
             <label htmlFor={`edit-name-${goal.id}`} className="block text-sm font-medium text-gray-700">Goal Name</label>
@@ -311,6 +348,8 @@ function GoalCard({ goal, availableBalance }: { goal: Goal; availableBalance: nu
         </form>
       )}
 
+      {!isFinished && (
+        <>
       <div className="mt-4 h-2 overflow-hidden rounded-full bg-gray-100">
         <div className="h-full rounded-full bg-gray-900" style={{ width: `${Math.min(Math.max(progress, 0), 100)}%` }} />
       </div>
@@ -345,6 +384,20 @@ function GoalCard({ goal, availableBalance }: { goal: Goal; availableBalance: nu
           {loading ? "Saving..." : mode === "allocate" ? "Add to Goal" : "Withdraw from Goal"}
         </button>
       </form>
+        </>
+      )}
+
+      {!isFinished && (
+        <button
+          type="button"
+          onClick={finishGoal}
+          disabled={loading || goal.balance !== 0}
+          title={goal.balance !== 0 ? "Withdraw all goal savings before completing the trip" : undefined}
+          className="mt-4 w-full rounded-xl border border-green-600 px-4 py-3 font-semibold text-green-700 disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          ✅ Mark Trip Completed
+        </button>
+      )}
     </article>
   );
 }
