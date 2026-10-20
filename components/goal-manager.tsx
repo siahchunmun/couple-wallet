@@ -281,7 +281,7 @@ function GoalCard({ goal, availableBalance }: { goal: Goal; availableBalance: nu
     try {
       const supabase = createClient();
       const { error: rpcError } = await supabase.rpc("finish_savings_goal", {
-        goal_id: goal.id,
+        p_goal_id: goal.id,
       });
       if (rpcError) {
         setError(rpcError.message);
