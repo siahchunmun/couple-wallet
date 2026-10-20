@@ -27,22 +27,23 @@ export default async function WalletGoalOverview({
   // GOALS
   // =========================================
 
-  const {
-    data: goalRows,
-    error: goalError,
-  } = await supabase
-    .from("savings_goals")
-    .select(`
-      id,
-      name,
-      target_amount,
-      status,
-      created_at
-    `)
-    .eq("wallet_id", walletId)
-    .order("created_at", {
-      ascending: true,
-    });
+const {
+  data: goalRows,
+  error: goalError,
+} = await supabase
+  .from("savings_goals")
+  .select(`
+    id,
+    name,
+    target_amount,
+    status,
+    created_at
+  `)
+  .eq("wallet_id", walletId)
+  .in("status", ["active", "completed"])
+  .order("created_at", {
+    ascending: true,
+  });
 
   if (goalError) {
     throw new Error(goalError.message);
@@ -211,7 +212,7 @@ export default async function WalletGoalOverview({
         {/* RESERVED / TOTAL */}
         <div className="mt-6 grid grid-cols-2 gap-3">
 
-          <div className="rounded-2xl bg-white/10 p-4">
+          <div className="rounded-2xl border border-[#302819] bg-[#17140D] p-4">
 
             <p className="text-xs text-gray-400">
               Reserved in Goals
@@ -227,7 +228,7 @@ export default async function WalletGoalOverview({
           </div>
 
 
-          <div className="rounded-2xl bg-white/10 p-4">
+          <div className="rounded-2xl border border-[#302819] bg-[#17140D] p-4">
 
             <p className="text-xs text-gray-400">
               Total Wallet Value
