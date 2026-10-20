@@ -128,7 +128,6 @@ export default async function GoalsPage({
       activeWallet.id
     );
 
-
   if (transactionError) {
     throw new Error(
       transactionError.message
@@ -194,37 +193,27 @@ export default async function GoalsPage({
   // GOALS
   // =========================================
 
-  const {
-    data: goalRows,
-    error: goalError,
-  } = await supabase
-    .from("savings_goals")
-    .select(`
-      id,
-      name,
-      target_amount,
-      status,
-      created_at
-    `)
-    .eq(
-      "wallet_id",
-      activeWallet.id
-    )
-    .order(
-      "created_at",
-      {
-        ascending:
-          true,
-      }
-    );
+const {
+  data: goalRows,
+  error: goalError,
+} = await supabase
+  .from("savings_goals")
+  .select(`
+    id,
+    name,
+    target_amount,
+    status,
+    created_at
+  `)
+  .eq("wallet_id", activeWallet.id)
+  .neq("status", "deleted")
+  .order("created_at", {
+    ascending: true,
+  });
 
-
-  if (goalError) {
-    throw new Error(
-      goalError.message
-    );
-  }
-
+if (goalError) {
+  throw new Error(goalError.message);
+}
 
   const goalIds =
     (goalRows ?? []).map(
